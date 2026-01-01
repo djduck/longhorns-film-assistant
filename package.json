@@ -9,7 +9,8 @@
   "scripts": {
     "dev": "concurrently -k \"vite\" \"wait-on http://localhost:5173 && electron .\"",
     "build": "vite build",
-    "start": "electron ."
+    "start": "electron .",
+    "dist": "npm run build && electron-builder --publish never"
   },
   "dependencies": {
     "react": "^18.3.1",
@@ -22,8 +23,36 @@
     "@vitejs/plugin-react": "^4.3.1",
     "concurrently": "^9.0.1",
     "electron": "^31.3.1",
+    "electron-builder": "^25.1.8",
     "typescript": "^5.5.4",
     "vite": "^5.4.2",
     "wait-on": "^7.2.0"
+  },
+  "build": {
+    "appId": "de.longhorns.filmassistant",
+    "productName": "Longhorns Film Assistant",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "dist/**",
+      "electron/**",
+      "package.json"
+    ],
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ]
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
   }
 }
